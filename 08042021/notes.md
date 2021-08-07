@@ -131,8 +131,8 @@ Code a function with no return value that receives three pointers to vectors (ar
 #include <iostream>
 using namespace std;
 
-void func(int *p1, int *p2, int *pr) {
-    
+void func(int* p1, int* p2, int* pr) {
+
     for (int i = 0; i < 5; i++) {
         pr[i] = p1[i] + p2[i];
     }
@@ -154,6 +154,10 @@ int main()
 
     for (int i = 0; i < 5; i++) {
         cout << pr[i] << " "; // 7, 9, 11, 13, 15
+    }
+
+    for (int i = 0; i < 5; i++) {
+        cout << r[i] << " "; // 7, 9, 11, 13, 15
     }
 }
 ```
