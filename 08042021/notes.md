@@ -2,48 +2,98 @@
 
 ## 1. Pointers
 
-- `&y` means the memory direction of y.
+Let `int y;` then `&y` means the memory direction of y.
 
 
 ```c++
 char c;
-int* pc; // error
+int* pc; 
+pc = &c; // error
 ```
 
 ```c++
 char c;
-int* pc; // no error
+char* pc; 
+pc = &c // no error
 ```
 
-- Indirection is when you take out the value of the pointer's target, `cout<<*py`.
+- ### Declaration
+
+```c++
+int x;
+int* px; // declaration
+```
+
+- ### Initialization
+
+Initialization of a pointer is when in its declaration, you also assign its value, which is a memory address.
+
+```c++
+int* px = &x;
+```
+
+- ### Assignment
+
+After a pointer declaration, you can assign a memory address as the pointer value.
+
+```c++
+px = &x;
+```
+
+- ### Indirection
+
+Indirection is accessing to the value of the variable the pointer is pointing at.
+
+```c++
+cout << *px;
+```
+
+### Pointers To Pointers
 
 ```c++
 float y = 2.5;
-float *py = &y; // needs to be float because y is float
-float **py = &py; // direction of the pointer py, needs to be float because of y
+float *py = &y; // needs to be float because y is float // simple pointer
+float **ppy = &py; // mem address of the pointer py, needs to be float because of y
+float ***pppy = &ppy; // triple pointer, not so common
+cout << ***pppy; // 2.5
 ```
 
-- Void Pointers can point to whatever type of value. Also called a generic pointer.
+### Type of Pointers
 
-- A null pointer does not point to any direction, does not point to trash.
+- **void pointers**
+
+Also called a generic pointer, they do not have a defined value of the variable they will point at, most of the times because the variable type they will point at is unknown. Void Pointers can point to whatever type of value. 
+
+```c++
+char c;
+int x;
+void* pc;
+
+pc = &c;
+pc = &x; // all valid
+```
+
+- **null pointers**
+
+A null pointer does not point to any direction, does not point to trash.
 
 ```c++
 char c;
 char* p = NULL;
 ```
 
-## Constant Pointers (int *const)
+- **constant pointers (int \*const)**
 
 ```c++
 int x = 4;
-int* const px = &x; // pointer cannot change its memory address (but x can change), and must be initialized
-cout << *px; // 4
+int* const px = &x; // pointer cannot change its memory address (but x can change), and must be initialized, else error
+cout << *px; // 4 (print the value of x through a pointer)
 *px = 8; // x or *px can change
 cout << *px; // 8
 // error px = &y;
 ```
 
-## Pointers To Constants (const *int)
+- **pointers to constants (const \*int)**
 
 ```c++
 const int x_const = 12;
@@ -54,7 +104,9 @@ const int y_const = 10;
 p3 = &y_const; // p3 can change its target, but its variable type is const int
 ```
 
-## Pointers To Arrays
+### Pointers To Arrays
+
+The name of an array is a pointer to its first element.
 
 ```c++
 int arr[3] = {5,7,9};
@@ -62,9 +114,18 @@ int *p = arr; // same as p = &arr[0]
 cout << *p; // 5
 cout << p[0]; // 5
 cout << *(p + 1); // 7, bc we are advancing one memory cell
+cout << *(p++); // 7
 ```
 
-## Exercise 1
+### Exercise 1
+
+Code a function with no return value that receives three pointers to vectors (arrays) of integers.The function must add the vectors (v1[1] + v2[1]). For the implementation use:
+
+- 2 arrays initialized with 5 elements each.
+
+- 1 array to store the sum.
+
+- 3 pointers that point to these vectors.
 
 ```c++
 #include <iostream>
@@ -97,20 +158,89 @@ int main()
 }
 ```
 
+### Pointers To Arrays of Pointers
+
+It is posible to create arrays of pointers, and pointers that point to these arrays.
+
+```c++
+int v_int = 12;
+int v_int2 = 3;
+
+int *pt_array[3]; // array of pointers
+int  **p_pt_array = pt_array; // pointer to array of pointers
+
+pt_array[0] = &v_int;
+pt_array[1] = &v_int2; // same as p_pt_array[1] = &v_int2
+```
+
 ## 2. Dynamic Memory
 
-- `malloc()` returns a void* pointer and so we cast it `(int *)`.
+The **new** operator in c++ is used to reserve memory in execution time, while the operator **delete** frees this memory.
+
+- Syntaxis
+
+```c++
+void* new dataType;
+void delete void* block;
+void delete [] void* block;
+```
+
+- Examples
+
+```c++
+int* p;
+p = new int;
+*p = 10;
+cout << *p; // 10
+delete p;
+```
+
+```c++
+int* p;
+p = new int [10];
+for (int i = 0; i < 10; i++){
+    p[i] = i;
+    cout << p[i] << "-";
+}
+delete [] p;
+```
+
+C's function `malloc()` is used to reserve memory in execution time, while the function `free()` frees this memory.
+
+- Syntaxis
+
+```c++
+void* malloc(size_t size)
+void free(void* block)
+```
+
+- `malloc()` returns a void* pointer and so we cast it as `(int *)`.
 
 ```c++
 int *p;
-p = (int*)malloc(sizeof(int));
-// for arrays (size 10): p = (int*)malloc(sizeof(int) * 10);
+p = (int*)malloc(sizeof(int)); // create a space in dynamic memory (exec mem) that is referenced by p pointer
 *p = 45
 cout<<*p;
+free(p); // param is the name of the pointer that references to mem you want to free
+```
+
+```c++
+int *p;
+p = (int*)malloc(sizeof(int) * 10);
+for(int i = 0; i < 10; i++){
+    p[i] = i;
+    cout << p[i] << "-";
+}
 free(p);
 ```
 
-## Exercise 2
+### Exercise 2
+
+Code a function that has no return value, and that it receives two pointers to integers. The function must swap the values of the parameters that it receives. These values must be from user input and stored in dynamic memory. For the implementation, use:
+
+- Dynamic memory
+
+- Pointers
 
 ```c++
 #include <iostream>
