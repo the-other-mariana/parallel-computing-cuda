@@ -1,0 +1,160 @@
+    1  sudo apt-get snapd
+    2  snpad
+    3  snapd
+    4  snap
+    5  snap --version
+    6  sudo snap install --classic code
+    7  clear
+    8  gcc --version
+    9  sudo apt install gcc
+   10  gcc --version
+   11  clear
+   12  sudo apt install python3.8
+   13  python
+   14  python3
+   15  sudo apt-get install g++
+   16  sudo apt install git
+   17  git config --global user.name "the-other-mariana"
+   18  git config --global user.email "mariana.avalos.arce@gmail.com"
+   19  ssh-keygen -t rsa -b 4096 -C "mariana.avalos.arce@gmail.com"
+   20  eval "$(ssh-agent -s)"
+   21  ssh-add ~/.ssh/id_rsa
+   22  cat ~/.ssh/id_rsa.pub
+   23  sudo apt-get install xclip
+   24  xclip -sel clip < ~/.ssh/id_rsa.pub
+   25  history > git-setup-file.txt
+   26  ls
+   27  sudo mv git-setup-file.txt Documents/git-setup-file.txt
+   28  ls
+   29  cd Documents/
+   30  ls
+   31  sudo mkdir -p github-mariana
+   32  cd github-mariana/
+   33  git clone https://github.com/the-other-mariana/computational-geometry
+   34  sudo git clone https://github.com/the-other-mariana/computational-geometry
+   35  cd Documents/
+   36  ls
+   37  sudo rm github-mariana
+   38  sudo rmdif github-mariana
+   39  sudo rmdir github-mariana
+   40  rm -r github-mariana
+   41  sudo rm -r github-mariana
+   42  ls
+   43  cd github-mariana/
+   44  sudo git clone https://github.com/the-other-mariana/computational-geometry
+   45  cd computational-geometry/
+   46  code .
+   47  sudo code .
+   48  sudo chmod -R 777
+   49  sudo usermod -aG sudo mariana
+   50  code .
+   51  sudo chown mariana -R computational-geometry
+   52  sudo chown mariana -R computational-geometry/
+   53  cd ..
+   54  sudo chown mariana -R computational-geometry
+   55  git add .
+   56  cd computational-geometry/
+   57  git add .
+   58  git commit -s -m 'changed pdf name'
+   59  git push
+   60  clear
+   61  wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+   62  echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+   63  sudo apt-get install sublime-text
+   64  echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+   65  sudo apt-get update
+   66  sudo apt-get install sublime-text
+   67  exit
+   68  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+   69  ls
+   70  sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+   71  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/7fa2af80.pub
+   72  sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"
+   73  sudo apt-get update
+   74  sudo apt-get -y install cuda
+   75  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+   76  sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+   77  wget https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.1-470.57.02-1_amd64.deb
+   78  sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.1-470.57.02-1_amd64.deb
+   79  sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
+   80  sudo apt-get update
+   81  sudo apt-get -y install cuda
+   82  sudo nano /etc/profile.d/cuda.sh
+   83  sudo chmod +x /etc/profile.d/cuda.sh
+   84  sudo nano /etc/ld.so.conf.d/cuda.conf
+   85  sudo ldconfig
+   86  reboot
+   87  nvcc --version
+   88  ls
+   89  cd Downloads
+   90  nvcc --version
+   91  nvcc hello-world.cu -L /usr/local/cuda/lib -lcudart -o hello-world
+   92  ls
+   93  ./hello-world
+   94  nvcc --version
+   95  lspci | grep -i nvidia
+   96  sudo nano vectors.cu
+   97  nvcc cuda.cu
+   98  nvcc vectors.cu
+   99  ls
+  100  ./a.out
+  101  nvidia-smi -a
+  102  nvidia-smi -pm 1
+  103  ./a.out
+  104  nvidia-smi -a
+  105  nvidia-smi -pm 1
+  106  ./a.out
+  107  ./hello-world
+  108  sudo nano vectors.cu 
+  109  nvcc hello-world.cu -L /usr/local/cuda/lib -lcudart -o hello-world
+  110  ./hello-world
+  111  sudo nano hello1.cu
+  112  nvcc hello1.cu -o hello1
+  113  sudo nano hello1.cu
+  114  nvcc hello1.cu -o hello1
+  115  ./hello1
+  116  ls
+  117  sudo nano hello1.cu
+  118  nvcc hello1.cu -o hello1
+  119  ./hello1
+  120  ls
+  121  cat hello1.cu
+  122  sudo ./hello1
+  123  sudo nano hello1.cu
+  124  nvcc hello1.cu -o hello1
+  125  sudo ./hello1
+  126  lspci | grep -i nvidia
+  127  sudo update-alternatives --config x86_64-linux-gnu_gl_conf
+  128  ubuntu-drivers devices
+  129  gcc --version
+  130  uname -r
+  131  sudo apt-get install linux-headers-$(uname -r)
+  132  udo apt-get install nvidia-gds 
+  133  sudo apt-get install nvidia-gds
+  134  reboot
+  135  systemctl status nvidia-persistenced
+  136  update-alternatives --display cuda
+  137  nvcc --version
+  138  cd Downloads/
+  139  ls
+  140  sudo ./hello1
+  141  ./a.out
+  142  ./hello-world 
+  143  nvidia-smi
+  144  lspci | grep -i nvidia
+  145  nvcc -gencode arch=compute_50,code=sm_50 -o hello2 hello1.cu
+  146  ls
+  147  sudo ./hello2
+  148  nvcc -gencode arch=compute_50,code=sm_50 -o vectors vectors.cu
+  149  sudo ./vectors
+  150  ls
+  151  ./hello2
+  152  cat hello-world.cu
+  153  nvcc -gencode arch=compute_50,code=sm_50 -o hw helloworld.cu
+  154  nvcc -gencode arch=compute_50,code=sm_50 -o hw hello-world.cu
+  155  ls
+  156  sudo ./hw
+  157  nvcc -gencode arch=compute_50,code=sm_50 -o hello2 hello1.cu
+  158  sudo ./hello2
+  159  systemctl status nvidia-persistenced
+  160  history > cuda-cmds.txt
