@@ -15,7 +15,7 @@ A cluster (GPC) is the group of SM's.
 
 - **Device**: GPU.
 
-## Processing Stream:
+## Processing Stream
 
 Starts with the Host (Sequential) and goes then to Device (Parallel) and then Host, etc...
 
@@ -41,3 +41,9 @@ Grids and blocks are three dimensional.
 
 Hardware level: many cluster (multiprocessor)
 Software level: one 3D grid with blocks. 
+
+## Lab 01 Output
+
+The output on my personal machine looks as following: <br />
+
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08092021/lab01/output.png?raw=true) <br />

@@ -10,17 +10,17 @@ This repo contains notes and code related to learning parallel computing using C
 
 > In my case, my GPU is GeForce 960M, so its computing capability is 5.0, which will be needed later.
 
-### Linux
+### Linux (Console)
 
 The complete history of commands to install it is in the [linux-cmds.txt](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/cuda-cmds.txt) file. <br />
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/linux-setup.jpeg?raw=true) <br />
 
-Provide the computing capability as `compute_XX, sm_XX` in flag form when running the command nvcc to compile a .cu code.
+Provide the computing capability as `compute_XX,sm_XX` in flag form when running the command nvcc to compile a .cu code.
 
-### Windows
+### Windows (Visual Studio 2019)
 
-Provide the computing capability as `compute_XX, sm_XX` in Visual Studio Project Properties > CUDA > Device > Generated Code menu.
+Provide the computing capability as `compute_XX,sm_XX` in Visual Studio Project Properties > CUDA > Device > Generated Code menu.
 
 1. Create a CUDA Runtime project in Visual Studio (2019).
 
@@ -30,7 +30,7 @@ Provide the computing capability as `compute_XX, sm_XX` in Visual Studio Project
 
 3. Go to CUDA > Device and click on Edit on the Code Generation field.
 
-4. Write `compute_XX, sm_XX`, where the XX is replaced by your GPU computing capability, and then uncheck the Inherit checkbox.
+4. Write `compute_XX,sm_XX`, where the XX is replaced by your GPU computing capability, and then uncheck the Inherit checkbox.
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/win-setup-02.png?raw=true) <br />
 
