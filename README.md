@@ -22,7 +22,19 @@ Provide the computing capability as `compute_XX, sm_XX` in flag form when runnin
 
 Provide the computing capability as `compute_XX, sm_XX` in Visual Studio Project Properties > CUDA > Device > Generated Code menu.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/win-setup.jpeg?raw=true) <br />
+1. Create a CUDA Runtime project in Visual Studio (2019).
+
+2. On the project explorer menu, right click and go to Project Properties.
+
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/win-setup-01.png?raw=true) <br />
+
+3. Go to CUDA > Device and click on Edit on the Code Generation field.
+
+4. Write `compute_XX, sm_XX`, where the XX is replaced by your GPU computing capability, and then uncheck the Inherit checkbox.
+
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/win-setup-02.png?raw=true) <br />
+
+5. Click on Ok and debug (run) your code.
 
 ## Handy Links
 
