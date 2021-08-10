@@ -2,18 +2,21 @@
 
 CUDA is a programming language that acts as an interface to handle the GPU API.
 
-Heterogeneous Model: Device and Host.
+## CUDA Arquitecture
 
-Hardware (GPC) designed to have the following
+Uses an Heterogeneous Model: this is formed with two hardware elements, Device and Host.
 
-- SM Unit (all green squares), also called MultiProcessors. Each multiProcessor has a max limit of blocks that can be processed in this SM. 
-    - SP Unit (each green square), also called CUDA cores. Search for this in CUDA website.
+The Hardware (GPC) design has the following
 
-A cluster (GPC) is the group of SM's.
+- SM Unit (all green squares and blues, etc), also called MultiProcessors. Each multiProcessor has a max limit of blocks that can be processed in this SM. These have:
+
+    - SP Unit (each green square), also called CUDA cores or nucleus. Search for this in CUDA website.
+
+A cluster (GPC) is the group of SM's or Streaming Multiprocessors.
 
 - **Host**: CPU. Less cores or nuclei.
 
-- **Device**: GPU.
+- **Device**: GPU. Grphics Card.
 
 ## Processing Stream
 
@@ -21,17 +24,19 @@ Starts with the Host (Sequential) and goes then to Device (Parallel) and then Ho
 
 ## Kernel, Threads, blocks and Grids
 
-- **Kernel**: gives the instructions to the cores or organizes the cores. The code snippet that you want to process in parallel.
+- **Kernel**: gives the instructions to all the cores or organizes the cores. The code snippet that you want to execute in parallel.
 
-- **Blocks**: cores are organized in blocks. The yellow squares. A block groups threads.
+- **Blocks**: cores are organized or grouped in blocks. The yellow squares. A block groups threads.
 
-- **Grid**: a group of one or more blocks. Each GPU has only one Grid.
+- **Grid**: a group of one or more blocks (Green big square). Each GPU has only one Grid.
+
+- **Warp**: a gropu of 32 threads, they're inside blocks as blocks have threads. A warp **is** physically executed in parallel.
 
 A single thread is executed in a single CUDA core. 
 
 Thread = CUDA core.
 
-Not every time everything runs in parallel, the first warp goes (32 threads per block) first, and then the next warp and so on. When a block is executed, not the whole block is executed, just the first 32, then other 32, etc.
+Not every time everything runs in parallel, the first warp goes (32 threads per block) first, and then the next warp and so on. When a block is executed, not the whole block is executed, just its first 32 threads (warp), then other 32, etc.
 
 A GPU is a group of multiprocessor.
 
