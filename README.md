@@ -6,9 +6,9 @@ This repo contains notes and code related to learning parallel computing using C
 
 1. Follow the guide to install the Nvidia Cuda Development Toolkit, from https://docs.nvidia.com/cuda/.
 
-2. Find your Nvidia GPU model at: https://developer.nvidia.com/cuda-gpus#compute and serach for its computing capability.
+2. Find your Nvidia GPU model at: https://developer.nvidia.com/cuda-gpus#compute and search for its computing capability.
 
-> In my case, my GPU is GeForce 960M, so its computing capability is 5.0, which will be needed later.
+> In my case, my GPU is GeForce GTX 960M, so its computing capability is 5.0, which will be needed later.
 
 ### Linux (Console)
 
@@ -34,7 +34,7 @@ Provide the computing capability as `compute_XX,sm_XX` in Visual Studio Project 
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/media/win-setup-02.png?raw=true) <br />
 
-5. Click on Ok and debug (run) your code.
+5. Click on OK and debug (run) your code.
 
 ## Handy Links
 

@@ -30,7 +30,7 @@ Starts with the Host (Sequential) and goes then to Device (Parallel) and then Ho
 
 - **Grid**: a group of one or more blocks (Green big square). Each GPU has only one Grid.
 
-- **Warp**: a gropu of 32 threads, they're inside blocks as blocks have threads. A warp **is** physically executed in parallel.
+- **Warp**: a group of 32 threads, they're inside blocks as blocks have threads. A warp **is** physically executed in parallel.
 
 A single thread is executed in a single CUDA core. 
 
@@ -38,7 +38,7 @@ Thread = CUDA core.
 
 Not every time everything runs in parallel, the first warp goes (32 threads per block) first, and then the next warp and so on. When a block is executed, not the whole block is executed, just its first 32 threads (warp), then other 32, etc.
 
-A GPU is a group of multiprocessor.
+A GPU is a group of multiprocessors.
 
 A block has threads, but you can have different amounts of threads in many blocks, just careful not to exceed `threadsInBlock x Blocks <= maxThreadsPerMultiProcessor`.
 
