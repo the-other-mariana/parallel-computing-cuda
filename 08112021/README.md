@@ -8,7 +8,7 @@
 
 ## Data Transfer and Memory Management
 
-A Host (CPU) and Device (GPU) have their own separate memory, CPU Memory and Gloabl Memory respectively. CUDA creates functions to transfer info from one memory to another to connect these memories.
+A Host (CPU) and Device (GPU) have their own separate memory, CPU Memory and Global Memory respectively. CUDA creates functions to transfer info from one memory to another to connect these memories.
 
 - **Global Memory** is a memory that is shared throughout all the blocks (and its threads) in a grid.
 
