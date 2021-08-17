@@ -24,7 +24,7 @@ int main()
 
     // reserve mem in dev
     int* dev_num1, * dev_num2, * dev_res;
-    cudaMalloc((void**)&dev_num1, sizeof(int));
+    cudaMalloc((void**)&dev_num1, sizeof(int)); // &3 error // &intvar no error but you need pointers with malloc in cuda
     cudaMalloc((void**)&dev_num2, sizeof(int));
     cudaMalloc((void**)&dev_res, sizeof(int)); // this pointer points to an address in the device
 
