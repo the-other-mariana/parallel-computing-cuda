@@ -103,4 +103,4 @@ int main()
 
 At the line `int* host_num1 = (int*)malloc(sizeof(int));`, Visual Studio makes a suggestion, which is the same I put in the comment on that line. <br />
 
-![image]()
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08162021/alt01.png?raw=true) <br />
