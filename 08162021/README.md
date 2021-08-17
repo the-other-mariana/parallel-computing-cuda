@@ -4,19 +4,23 @@
 
 It is a method executed in the GPU as a mass execution. As seen before, CUDA architecure's Processing flow is done switching between CPU and GPU. The kernel is a function you execute on the Device.
 
-Specifier | Called From | Executed In | Syntax |
-| ---- | ---- | ---- | ---- |
-| \_\_host\_\_ | Host | Host | \_\_float\_\_ float name() |
-| \_\_global\_\_ | Host | Device | \_\_global\_\_ void name() |
-| \_\_device\_\_ | Device | Device | \_\_device\_\_ float name() |
+Specifier (Identifier) | Called From | Executed In | Syntax | Description |
+| ---- | ---- | ---- | ---- | ---- |
+| \_\_host\_\_ | Host | Host | \_\_float\_\_ float name() | CPU functions that are normally used in a program. You can skip the identifier, but it's good pratice. |
+| \_\_global\_\_ | Host | Device | \_\_global\_\_ void name() | This identifier is for the **kernel**. Executed in the GPU, in parallel. |
+| \_\_device\_\_ | Device | Device | \_\_device\_\_ float name() | This is executed in the device, but it's not exaclty a kernel (parallel), because it could or not be something in parallel. |
 
 - If there is no specifier before a function, it is simply taken as a normal function in CPU processing. In this way, `__host__` is just a simple CPU function as well.
 
-- `__device__` functions are defined throughout your code and then a kernel function calls it. Could be or not a parallel process function, it is just a method you need in your kernel to be done.
+- `__device__` functions are defined throughout your code and then a kernel function calls it. Could be or not a parallel process function, it is just a method the kernel might need to be done.
 
-- A kernel return value always void. If you want to return something, you do it by reference using the kernel parameters.
+- A **kernel** return value type is always void. If you want to return something, you do it by a reference pass using the kernel parameters.
 
 - The specifier `__global__` creates a kernel.
+
+- To call a kernel is to execute code in the GPU.
+
+- **Synchronization**: when you want to wait for an action in parallel in order to begin another sequentially or viceversa.
 
 ## The Kernel Syntax
 
@@ -31,7 +35,27 @@ __global__ void myKernel(arg_1, arg_2, ..., arg_n) {
 myKernel<<<blocks,threads>>>(arg_1, arg_2, ..., arg_n);
 ```
 
+## Launching a Kernel
+
+Basic Sequence:
+
+1. Reserve memory in the host: this memory will be used for storing the info that will be processed in parallel.
+
+2. Initialize the data from the host: this reserved memory is initialized with the said info to process in the GPU.
+
+3. Data transfer from host to device: all this memory is in the host, and in order to process it in the device, we need to copy it to the device.
+
+4. Launch the kernel specifying the number of blocks and threads: give the order of the execution of the function in the GPU, taking the transfered data to be processed.
+
+5. Result data transfer from device to host: from the device memory, we copy the info back to the host so that it can be analized.
+
+6. Free memory (device and host) from the host.
+
 ### Exercise 1
+
+- A function that adds two integer numbers in the host (a simple add function).
+
+- A function that adds two integer numbers in the device through the launch of a kernel.
 
 ```c++
 #include "cuda_runtime.h"
@@ -104,3 +128,9 @@ int main()
 At the line `int* host_num1 = (int*)malloc(sizeof(int));`, Visual Studio makes a suggestion, which is the same I put in the comment on that line. <br />
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08162021/alt01.png?raw=true) <br />
+
+## Output Example 01
+
+My machine produces the following output. <br />
+
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08162021/out-ex01.png?raw=true) <br />
