@@ -94,3 +94,89 @@ int main()
 ```
 
 ## Lab 03
+
+Make a program in c/c++ in which you launch a kernel with one block and one thread. The kernel must solve a quadratic equation in the form:
+
+> ax^2 + bx + c = 0,
+
+where its solutions are given by:
+
+> x1 = (-b + sqrt(b^2 - 4ac)) / 2a <br />
+> x2 = (-b - sqrt(b^2 - 4ac)) / 2a
+
+For the implementation, you must consider:
+
+1. Ask the user for coefficients a, b and c.
+2. The program must show the solutions for the equation or a message stating that the solution does NOT exist if the result is an imaginary number.
+
+### Tests
+
+- a = 1, b = -5, c = 6 -> x1 = 2, x2 = 3
+
+- a = 1, b = 1, c = 1 -> The solution does not exist
+
+
+### Solution
+
+```c++
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+__global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
+{
+    double root = (dev_abc[1] * dev_abc[1]) - (4 * dev_abc[0] * dev_abc[2]);
+    // printf("root: %lf\n", root);
+    if (root < 0) {
+        *dev_error = true;
+    }
+    else {
+        *dev_error = false;
+        dev_x1x2[0] = ((-1 * dev_abc[1] - sqrt(root)) / (2 * dev_abc[0]));
+        dev_x1x2[1] = ((-1 * dev_abc[1] + sqrt(root)) / (2 * dev_abc[0]));
+    }
+     
+}
+
+int main() {
+    double* n_host = (double*)malloc(sizeof(double) * 3);
+    double* x1x2_host = (double*)malloc(sizeof(double) * 2);
+    bool* error_host = (bool*)malloc(sizeof(bool));
+
+    double* n_dev;
+    double* x1x2_dev;
+    bool* error_dev;
+    cudaMalloc((void**)&n_dev, sizeof(double) * 3);
+    cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
+    cudaMalloc((void**)&error_dev, sizeof(bool));
+
+    for (int i = 0; i < 3; i++) {
+        scanf("%lf", &n_host[i]);
+    }
+
+    x1x2_host[0] = 0;
+    x1x2_host[1] = 0;
+    *error_host = false;
+
+    cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
+    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice);
+    cudaMemcpy(error_dev, error_host, sizeof(bool), cudaMemcpyHostToDevice);
+    
+    solveGPU <<< 1, 1 >>> (n_dev, x1x2_dev, error_dev);
+
+    cudaMemcpy(error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
+    if (*error_host) {
+        printf("GPU Result:\n");
+        printf("The solution does not exist\n");
+    }
+    else {
+        printf("GPU Result:\n");
+        printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
+    }
+    
+}
+```
