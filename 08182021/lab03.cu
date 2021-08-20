@@ -1,51 +1,60 @@
-﻿
-#include "cuda_runtime.h"
+﻿#include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
-__global__ void linearSolveGPU(float* dev_abc, float* dev_x1x2, bool* dev_error)
+__global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
 {
-    
+    double root = (dev_abc[1] * dev_abc[1]) - (4 * dev_abc[0] * dev_abc[2]);
+    // printf("root: %lf\n", root);
+    if (root < 0) {
+        *dev_error = true;
+    }
+    else {
+        *dev_error = false;
+        dev_x1x2[0] = ((-1 * dev_abc[1] - sqrt(root)) / (2 * dev_abc[0]));
+        dev_x1x2[1] = ((-1 * dev_abc[1] + sqrt(root)) / (2 * dev_abc[0]));
+    }
+     
 }
 
-int main()
-{
-    float* n_host = (float*)malloc(sizeof(float) * 3); 
-    float* x1x2_host = (float*)malloc(sizeof(float) * 2);
-    float* x1x2_gpu = (float*)malloc(sizeof(float) * 2);
-    bool* error = (bool*)malloc(sizeof(bool));
+int main() {
+    double* n_host = (double*)malloc(sizeof(double) * 3);
+    double* x1x2_host = (double*)malloc(sizeof(double) * 2);
+    bool* error_host = (bool*)malloc(sizeof(bool));
 
-    float* n_device;
-    float* x1x2_device;
+    double* n_dev;
+    double* x1x2_dev;
+    bool* error_dev;
+    cudaMalloc((void**)&n_dev, sizeof(double) * 3);
+    cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
+    cudaMalloc((void**)&error_dev, sizeof(bool));
 
-    cudaMalloc((void**)&n_device, sizeof(float) * 3);
-    cudaMalloc((void**)&x1x2_device, sizeof(float) * 2);
-
-    n_host[0] = 5;
-    n_host[1] = 1;
-    n_host[2] = 4;
+    for (int i = 0; i < 3; i++) {
+        scanf("%lf", &n_host[i]);
+    }
 
     x1x2_host[0] = 0;
     x1x2_host[1] = 0;
-    x1x2_gpu[0] = 0;
-    x1x2_gpu[1] = 0;
+    *error_host = false;
 
-    cudaMemcpy(n_device, n_host, sizeof(float) * 3, cudaMemcpyHostToDevice);
-    cudaMemcpy(x1x2_device, x1x2_host, sizeof(float) * 2, cudaMemcpyHostToDevice);
+    cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
+    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice);
+    cudaMemcpy(error_dev, error_host, sizeof(bool), cudaMemcpyHostToDevice);
+    
+    solveGPU <<< 1, 1 >>> (n_dev, x1x2_dev, error_dev);
 
-    linearSolveGPU <<< 1, 1 >>> (n_device, x1x2_device, y_device);
-    cudaMemcpy(x1x2_gpu, x1x2_device, sizeof(float) * 2, cudaMemcpyDeviceToHost);
-    printf("GPU result \n");
-    printf("x = %f y = %f \n", x1x2_gpu[0], x1x2_gpu[1]);
-
-    free(n_host);
-    free(x1x2_host);
-    free(x1x2_gpu);
-
-    cudaFree(n_device);
-    cudaFree(x1x2_device);
-
-    return 0;
+    cudaMemcpy(error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
+    if (*error_host) {
+        printf("GPU Result:\n");
+        printf("The solution does not exist\n");
+    }
+    else {
+        printf("GPU Result:\n");
+        printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
+    }
+    
 }
