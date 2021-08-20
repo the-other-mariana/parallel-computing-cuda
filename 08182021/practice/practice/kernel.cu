@@ -33,7 +33,7 @@ int main() {
     bool* error_dev;
     cudaMalloc((void**)&n_dev, sizeof(double) * 3);
     cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
-    cudaMalloc((void**)&error_dev, sizeof(bool));
+    cudaMalloc((void**)&error_dev, sizeof(bool)); // &bool error
 
     for (int i = 0; i < 3; i++) {
         printf("%c: ", char(i + 97)); //printf("%s", (i + 65)); exception
@@ -50,6 +50,7 @@ int main() {
 
     solveGPU << < 1, 1 >> > (n_dev, x1x2_dev, error_dev);
 
+    // cout << "cuda ptr " << *error_dev << endl; // no error, but execption at runtime
     cudaMemcpy(error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
     cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
     if (*error_host) {
@@ -60,7 +61,7 @@ int main() {
         printf("GPU Result:\n");
         printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
     }
-    
+    /*
     char word[] = "hello!";
     char* p = word;
     char* p0 = &word[0];
@@ -103,4 +104,5 @@ int main() {
         ptr1[i] = i * 10;
     }
     cout << *(ptr1 + 5) << endl; // 50
+    */
 }

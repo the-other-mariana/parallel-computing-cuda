@@ -142,7 +142,7 @@ __global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
 }
 
 int main() {
-    double* n_host = (double*)malloc(sizeof(double) * 3);
+    double* n_host = (double*)malloc(sizeof(double) * 3); // not cast, error
     double* x1x2_host = (double*)malloc(sizeof(double) * 2);
     bool* error_host = (bool*)malloc(sizeof(bool));
 
@@ -151,10 +151,11 @@ int main() {
     bool* error_dev;
     cudaMalloc((void**)&n_dev, sizeof(double) * 3);
     cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
-    cudaMalloc((void**)&error_dev, sizeof(bool));
+    cudaMalloc((void**)&error_dev, sizeof(bool)); // &bool error
 
     for (int i = 0; i < 3; i++) {
-        scanf("%lf", &n_host[i]);
+        printf("%c: ", char(i + 97)); //printf("%s", (i + 65)); exception
+        scanf("%lf", &n_host[i]); // "A:%lf" not error, but input incomplete // \n weird results
     }
 
     x1x2_host[0] = 0;
@@ -162,11 +163,12 @@ int main() {
     *error_host = false;
 
     cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
-    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice);
-    cudaMemcpy(error_dev, error_host, sizeof(bool), cudaMemcpyHostToDevice);
-    
-    solveGPU <<< 1, 1 >>> (n_dev, x1x2_dev, error_dev);
+    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice); // not necessary
+    cudaMemcpy(error_dev, error_host, sizeof(bool), cudaMemcpyHostToDevice); // not necessary
 
+    solveGPU << < 1, 1 >> > (n_dev, x1x2_dev, error_dev);
+
+    // cout << "cuda ptr " << *error_dev << endl; // no error, but execption at runtime
     cudaMemcpy(error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
     cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
     if (*error_host) {
