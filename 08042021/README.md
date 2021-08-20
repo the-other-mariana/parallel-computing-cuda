@@ -273,3 +273,77 @@ int main()
     cout << "v1: " << *v1 << "\nv2: " << *v2; // swap values of v1 and v2
 }
 ```
+
+## Some Findings
+
+```c++
+bool* ptr;
+*ptr = false;
+if (ptr) {
+    // will always be true without *
+}
+
+bool* ptr = &true; // error
+
+int a = 5;
+int* b = &a;
+int c = *b // c is a separate location with value 5
+
+int arr[10];
+int* p6 = &arr[6];
+int* p0 = &arr[0];
+
+cout << (int)p6 << " " << (int)p0; // 162328 162304 (24 difference, 6 times 4(int))
+cout <<"diff: " << p6 - p0; // 6 (pointers work on a space defined by the data type they point to)
+
+int arr[10] = {3,6,9,12,15,18,21,24,27,30};
+int* p0 = arr;
+
+for (int i = 0; i < 10; i++) {
+    cout << (arr + i) << endl; // 10 addresses that differ by 4 (int)
+    cout << *(arr + i) << endl; // all array nums
+    cout << p0 << " = " << *p0 << endl; // 10 addresses = each num
+    p0++;
+}
+
+char word[] = "hello!";
+char* p = word;
+char* p0 = &word[0];
+char* p3 = &word[3];
+
+cout << p << endl; // hello! // char pointers are especially treated as strings, thats why 
+cout << p0 << endl; // hello! // these prints dont show addresses
+cout << p3 << endl; // lo!
+
+// dynamic memory: when you know the size of memory only at run time, not at compile time
+int size;
+int* ptr;
+
+cout << "Enter size: ";
+cin >> size;
+
+ptr = (int*)malloc(sizeof(int) * size);
+
+for (int i = 0; i < size; i++) {
+    cout << "Value: ";
+    cin >> ptr[i];
+}
+
+for (int i = 0; i < size; i++) {
+    cout << ptr[i] << " ";
+}
+
+int* ptr1;
+int* ptr2;
+
+ptr1 = (int*)malloc(10 * sizeof(int));
+*ptr1 = { 0 }; // only sets ptr[0] = 0
+for (int i = 0; i < 10; i++) {
+    cout << ptr1[i] << " ";
+}
+// 0 -842150451 -842150451 -842150451 -842150451 -842150451 -842150451 -842150451 -842150451 -842150451
+for (int i = 0; i < 10; i++) {
+    ptr1[i] = i * 10;
+}
+cout << *(ptr1 + 5) << endl; // 50
+```
