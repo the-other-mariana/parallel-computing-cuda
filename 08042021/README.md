@@ -282,20 +282,28 @@ bool* ptr;
 if (ptr) {
     // will always be true without *
 }
+```
 
+```c++
 bool* ptr = &true; // error
+```
 
+```c++
 int a = 5;
 int* b = &a;
 int c = *b // c is a separate location with value 5
+```
 
+```c++
 int arr[10];
 int* p6 = &arr[6];
 int* p0 = &arr[0];
 
 cout << (int)p6 << " " << (int)p0; // 162328 162304 (24 difference, 6 times 4(int))
 cout <<"diff: " << p6 - p0; // 6 (pointers work on a space defined by the data type they point to)
+```
 
+```c++
 int arr[10] = {3,6,9,12,15,18,21,24,27,30};
 int* p0 = arr;
 
@@ -305,7 +313,9 @@ for (int i = 0; i < 10; i++) {
     cout << p0 << " = " << *p0 << endl; // 10 addresses = each num
     p0++;
 }
+```
 
+```c++
 char word[] = "hello!";
 char* p = word;
 char* p0 = &word[0];
@@ -314,7 +324,9 @@ char* p3 = &word[3];
 cout << p << endl; // hello! // char pointers are especially treated as strings, thats why 
 cout << p0 << endl; // hello! // these prints dont show addresses
 cout << p3 << endl; // lo!
+```
 
+```c++
 // dynamic memory: when you know the size of memory only at run time, not at compile time
 int size;
 int* ptr;
@@ -332,7 +344,9 @@ for (int i = 0; i < size; i++) {
 for (int i = 0; i < size; i++) {
     cout << ptr[i] << " ";
 }
+```
 
+```c++
 int* ptr1;
 int* ptr2;
 
