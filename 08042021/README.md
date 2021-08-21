@@ -361,3 +361,57 @@ for (int i = 0; i < 10; i++) {
 }
 cout << *(ptr1 + 5) << endl; // 50
 ```
+
+## Passing in Funtions
+
+There are 3 ways in which you can pass arguments (values) to functions:
+
+- ### Pass by Value
+
+This method copies the actual **value** of an argument into the parameter of the function, where this parameter is only **local** to the function. Changes made to the parameter inside the function have no effect on the argument. By default, c++ uses this method of passing in functions. You create a new memory location with the value of the passed argument.
+
+```c++
+void passByValue(int a, int b){
+    a++;
+    b++;
+}
+int main(){
+    int a = 2, b = 3;
+    passByValue(a, b);
+    cout << a << " " << b; // a = 2, b = 3
+}
+```
+
+- ### Pass by Reference
+
+This method copies the **reference** of an argument into the formal parameter. Inside the function, the reference is used to access the **actual argument** used in the call. Therefore, changes made to the parameter affect the passed argument. In this case, x is a new name given to a, and y is the new name for b. X is a new name for the same memory location named a.
+
+```c++
+void passByReference(int &x, int &y){
+    x++;
+    y++;
+}
+int main(){
+    int a = 2, b = 3;
+    passByReference(a, b);
+    cout << a << " " << b; // a = 3, b = 4
+}
+```
+
+- ### Pass by Address
+
+Also named Pass by Pointer, this method copies the **address** of an argument into the formal parameter of a function. Inside the function, the **actual address** is used to access the actual argument used in the call. Therefore, changes made to the parameter affect the passed argument. To do this, argument pointers are passed to the function. You are passing the address of a to the inside of pointer x in the function argument.
+
+```c++
+void passByAddress(int* x, int* y){
+    *x += 1;
+    *y += 1;
+}
+int main(){
+    int a = 2, b = 3;
+    int* pa = &a, * pb = &b;
+    passByAddress(&a, &b); // a = 3, b = 4
+    passByAddress(pa, pb);
+    cout << a << " " << b; // a = 4, b = 5
+}
+```
