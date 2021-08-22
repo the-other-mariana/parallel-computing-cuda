@@ -182,3 +182,139 @@ int main() {
     
 }
 ```
+
+## Other Findings
+
+```c++
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+
+using namespace std;
+
+__global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
+{
+    double root = (dev_abc[1] * dev_abc[1]) - (4 * dev_abc[0] * dev_abc[2]);
+    // printf("root: %lf\n", root);
+    if (root < 0) {
+        *dev_error = true;
+    }
+    else {
+        *dev_error = false;
+        dev_x1x2[0] = ((-1 * dev_abc[1] - sqrt(root)) / (2 * dev_abc[0]));
+        dev_x1x2[1] = ((-1 * dev_abc[1] + sqrt(root)) / (2 * dev_abc[0]));
+    }
+
+}
+
+int main() {
+    double n_host[3] = { 0 }; // could be [4] and no problem // [2] memcpy copies trash when sizeof 3 // int throws exc
+    double x1x2_host[2] = { 0 };
+    bool error_host = false;
+
+    double* n_dev;
+    double* x1x2_dev;
+    bool* error_dev;
+    cudaMalloc((void**)&n_dev, sizeof(double) * 3);
+    cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
+    cudaMalloc((void**)&error_dev, sizeof(bool)); // &bool error
+
+    for (int i = 0; i < 3; i++) {
+        printf("%c: ", char(i + 97)); //printf("%s", (i + 65)); exception
+        scanf("%lf", &n_host[i]); // "A:%lf" not error, but input incomplete // \n weird results
+    }
+
+    cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
+    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice); // not necessary
+    cudaMemcpy(error_dev, &error_host, sizeof(bool), cudaMemcpyHostToDevice); // not necessary
+
+    solveGPU << < 1, 1 >> > (n_dev, x1x2_dev, error_dev);
+
+    // cout << "cuda ptr " << *error_dev << endl; // no error, but execption at runtime
+    cudaMemcpy(&error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
+    if (error_host) {
+        printf("GPU Result:\n");
+        printf("The solution does not exist\n");
+    }
+    else {
+        printf("GPU Result:\n");
+        printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
+    }
+}
+```
+
+```c++
+int* test;
+cudaMalloc((void**)&test, sizeof(bool)); // no error
+```
+
+```c++
+#include "cuda_runtime.h"
+#include "device_launch_parameters.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include<iostream>
+
+using namespace std;
+
+__global__ void solveGPU(double* dev_abc, double* dev_x1x2, int* dev_error)
+{
+    double root = (dev_abc[1] * dev_abc[1]) - (4 * dev_abc[0] * dev_abc[2]);
+    if (root < 0) {
+        *dev_error = true;
+    }
+    else {
+        *dev_error = false;
+        dev_x1x2[0] = ((-1 * dev_abc[1] - sqrt(root)) / (2 * dev_abc[0]));
+        dev_x1x2[1] = ((-1 * dev_abc[1] + sqrt(root)) / (2 * dev_abc[0]));
+    }
+
+}
+
+int main() {
+    double n_host[3] = { 0 }; 
+    double x1x2_host[2] = { 0 };
+    bool error_host = false;
+
+    double* n_dev;
+    double* x1x2_dev;
+    int* error_dev; // gives no error
+    cudaMalloc((void**)&n_dev, sizeof(double) * 3);
+    cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
+    cudaMalloc((void**)&error_dev, sizeof(bool));
+
+    for (int i = 0; i < 3; i++) {
+        printf("%c: ", char(i + 97));
+        scanf("%lf", &n_host[i]);
+    }
+
+    cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
+    cudaMemcpy(x1x2_dev, x1x2_host, sizeof(double) * 2, cudaMemcpyHostToDevice); // not necessary
+    cudaMemcpy(error_dev, &error_host, sizeof(bool), cudaMemcpyHostToDevice); // not necessary
+
+    solveGPU << < 1, 1 >> > (n_dev, x1x2_dev, error_dev);
+
+
+    cudaMemcpy(&error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
+    cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
+    if (error_host) {
+        printf("GPU Result:\n");
+        printf("The solution does not exist\n");
+    }
+    else {
+        printf("GPU Result:\n");
+        printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
+    }
+}
+```
+
+- `cudaMalloc(void** devPtr, size_t size)`: Allocates `size` bytes of linear memory on the device and returns in *devPtr a pointer to the allocated memory. Memory not cleared.
+
+- `cudaMemcpy (void* dst, const void* src, size_t count, cudaMemcpyKind kind)`: Copies `count` bytes from the memory area pointed to by src to the memory area pointed to by dst. Calling cudaMemcpy() with dst and src pointers that do not match the direction of the copy results in an undefined behavior.
