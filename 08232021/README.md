@@ -124,7 +124,7 @@ threadIdx.x: 4, threadIdx.y: 1, threadIdx.z: 0
 threadIdx.x: 5, threadIdx.y: 1, threadIdx.z: 0
 ```
 
-### Example 3
+## Example 3
 
 ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/04-3d-block.png?raw=true)
 
@@ -220,7 +220,7 @@ threadIdx.x: 4
 threadIdx.x: 5
 ```
 
-## N blocks, 1 axis (One Dimension)
+## N Blocks, 1 Axis (One Dimension)
 
 ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/0809-global-formula.png?raw=true)
 
