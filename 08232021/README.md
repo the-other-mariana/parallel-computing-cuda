@@ -10,13 +10,21 @@ Blocks are tridimensional, as well as grids. The above block is one dimensional.
 
 - To identify threads:
 
-    - `threadIdx.x`: x axis index number of the thread. If you have only one block with six threads along one axis (one dimensional block), this property will be the full id. Indexes start in zero. It's y and z components are zero in one dimensional blocks, like the following image.
+    - `threadIdx.x`: x axis index number of the thread. If you have only one block with six threads along one axis (one dimensional block), this property will be the full id. Indexes start in zero. It's y and z components are zero in one dimensional blocks, like the following image. 
 
     ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/02-id-x.png?raw=true) 
 
-    - `threadIdx.y`: You will need y component if your block is bidimensional. Z component is zero in that case.
+    In the case of **a one dimensional block**, a thread would be identified with only one property: `threadIdx.x`. Properties `threadIdx.y` and `threadIdx.z` are zero. For example, (3,0,0).
 
-    - `threadIdx.z`: For three dimensional blocks. In this case, the thread is located in (4,0,1).
+    - `threadIdx.y`: you will also need y component if your block is bidimensional, like the below image. Z component is zero in that case as well.
+
+    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/03-2d-block.png?raw=true)
+
+    In the case of **a two dimensional block**, to identify a thread in this single-block config, you would need two components: `threadIdx.x` and `threadIdx.y`, while `threadIdx.z` is zero. For example (4,1,0).
+
+    - `threadIdx.z`: for the case of **a three dimensional block**, you will need a third component to identify threads in it, called `threadIdx.z`, which indicates the position of the thread in the z axis. For example, (4,0,1).
+
+    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/04-3d-block.png?raw=true)
 
     We need to identify threads in order to give instructions to particular threads inside the kernel.
 
