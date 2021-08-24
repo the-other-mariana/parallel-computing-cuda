@@ -2,13 +2,17 @@
 
 ## Many Threads, One Block
 
-- Threads (orange cubes) are contained or grouped in blocks (yellow container).
+- Threads (orange cubes) are contained or grouped in blocks (yellow container). In the image, there are six threads, one block. In this way, The kernel (function) will be executed by each thread at the same time (in parallel). This means that if we were to launch a kernel with this config (six threads one block), all we coded inside the kernel would be executed six times, one by each thread.
 
-- The kernel (function) will be executed on each thread at the same time (in parallel).
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/01-simple-block.png?raw=true)
+
+Blocks are tridimensional, as well as grids. The above block is one dimensional.
 
 - To identify threads:
 
-    - `threadIdx.x`: x axis index number of the thread. If you have only one block with six threads along one axis (one dimensional block), this property will be the full id. Indexes start in zero. It's y and z components are zero in one dimensional blocks.
+    - `threadIdx.x`: x axis index number of the thread. If you have only one block with six threads along one axis (one dimensional block), this property will be the full id. Indexes start in zero. It's y and z components are zero in one dimensional blocks, like the following image.
+
+    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/02-id-x.png?raw=true) 
 
     - `threadIdx.y`: You will need y component if your block is bidimensional. Z component is zero in that case.
 
