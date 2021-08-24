@@ -1,5 +1,7 @@
 # Notes
 
+## Many Threads, One Block
+
 - Threads (orange cubes) are contained or grouped in blocks (yellow container).
 
 - The kernel (function) will be executed on each thread at the same time (in parallel).
