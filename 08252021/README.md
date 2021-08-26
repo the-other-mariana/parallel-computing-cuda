@@ -1,8 +1,36 @@
 # Notes
 
+## Other Configs (3D Grid with 3D Blocks)
+
 - Properties `threadIdx.x`, `threadIdx.y` and `threadIdx.z` are used to identify a thread **inside its block**.
 
+- When we have a much more complicated grid, we need additional indexes apart from these in order to calculate **gloablId** values, which will take on account other blocks in the config.
+
+    - `blockIdx`: determines the index of a block inside a grid. Indexes start in zero. It has x,y,z values.
+
+    - `blockDim`: how many **threads** per dimension are in a block. These are **quantity values**, not indexes, and therefore are constant for all threads. It has x,y,z values.
+
+    - `gridDim`: how many **blocks** per dimension are in the **grid**. These are **quantity values**, not indexes, and therefore are constant for all threads. It has x,y,z values.
+
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08252021/res/03-all-props.png?raw=true) 
+
 ## Lab 04
+
+Make a program in c/c++ using CUDA in which you implement a grid in 3D that has 4 threads in each dimension and 2 threads per block dimension. The program must print from kernel the values of the following indexes, considering their three dimensions:
+
+- threadIdx
+
+- blockIdx
+
+- blockDim
+
+- gridDim
+
+Like the image below:
+
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08252021/res/04-config-lab04.png?raw=true) 
+
+### Solution
 
 ```c++
 #include "cuda_runtime.h"
