@@ -61,6 +61,14 @@ int main() {
         printf("GPU Result:\n");
         printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
     }
+
+    const int x_const = 12;
+    // error int* p3 = &x_const; 
+    const int* p3 = &x_const; // no error, also this pointer can point to different const int variables
+    //*p3 = 11; // error bc you're changing x_const or p3
+    const int y_const = 10;
+    p3 = &y_const; // p3 can change its target, but its variable type is const int
+
     /*
     char word[] = "hello!";
     char* p = word;

@@ -196,10 +196,9 @@ int main() {
 
 using namespace std;
 
-__global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
+__global__ void solveGPU(double* dev_abc, double* dev_x1x2, int* dev_error)
 {
     double root = (dev_abc[1] * dev_abc[1]) - (4 * dev_abc[0] * dev_abc[2]);
-    // printf("root: %lf\n", root);
     if (root < 0) {
         *dev_error = true;
     }
@@ -212,20 +211,20 @@ __global__ void solveGPU(double* dev_abc, double* dev_x1x2, bool* dev_error)
 }
 
 int main() {
-    double n_host[3] = { 0 }; // could be [4] and no problem // [2] memcpy copies trash when sizeof 3 // int throws exc
+    double n_host[3] = { 0 };
     double x1x2_host[2] = { 0 };
     bool error_host = false;
 
     double* n_dev;
     double* x1x2_dev;
-    bool* error_dev;
+    int* error_dev; // gives no error
     cudaMalloc((void**)&n_dev, sizeof(double) * 3);
     cudaMalloc((void**)&x1x2_dev, sizeof(double) * 2);
-    cudaMalloc((void**)&error_dev, sizeof(bool)); // &bool error
+    cudaMalloc((void**)&error_dev, sizeof(bool));
 
     for (int i = 0; i < 3; i++) {
-        printf("%c: ", char(i + 97)); //printf("%s", (i + 65)); exception
-        scanf("%lf", &n_host[i]); // "A:%lf" not error, but input incomplete // \n weird results
+        printf("%c: ", char(i + 97));
+        scanf("%lf", &n_host[i]);
     }
 
     cudaMemcpy(n_dev, n_host, sizeof(double) * 3, cudaMemcpyHostToDevice);
@@ -234,7 +233,7 @@ int main() {
 
     solveGPU << < 1, 1 >> > (n_dev, x1x2_dev, error_dev);
 
-    // cout << "cuda ptr " << *error_dev << endl; // no error, but execption at runtime
+
     cudaMemcpy(&error_host, error_dev, sizeof(bool), cudaMemcpyDeviceToHost);
     cudaMemcpy(x1x2_host, x1x2_dev, sizeof(double) * 2, cudaMemcpyDeviceToHost);
     if (error_host) {
@@ -245,7 +244,16 @@ int main() {
         printf("GPU Result:\n");
         printf("x1 = %lf x2 = %lf\n", x1x2_host[0], x1x2_host[1]);
     }
+
+    //free(n_host); // exc
+    //free(x1x2_host); // exc
+    //free(&error_host); // exc
+
+    cudaFree(n_dev);
+    cudaFree(x1x2_dev);
+    cudaFree(error_dev);
 }
+
 ```
 
 ```c++

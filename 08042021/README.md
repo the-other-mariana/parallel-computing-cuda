@@ -93,13 +93,13 @@ cout << *px; // 8
 // error px = &y;
 ```
 
-- **pointers to constants (const \*int)**
+- **pointers to constants (const int\*)**
 
 ```c++
 const int x_const = 12;
 // error int* p3 = &x_const; 
-const int* p3 = &x_const; // no error, also this pointer can point to different const int variables
-*p3 = 11 // error bc you're changing x_const or p3
+const int* p3 = &x_const; // no error, also this pointer can point to different const int variables // error if int * p3 = &const_var
+*p3 = 11; // error bc you're changing x_const or p3
 const int y_const = 10;
 p3 = &y_const; // p3 can change its target, but its variable type is const int
 ```
