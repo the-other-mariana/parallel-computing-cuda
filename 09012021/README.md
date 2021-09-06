@@ -10,7 +10,7 @@
 
 The idea is to have two vectors (arrays) of size 12 each, and sum its elements to store them in a third array, of size 12 as well: first element of A + first element of B, stored on the first element of C and so on.
 
-![image]()
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09012021/res/ex01-diagram.png?raw=true)
 
 - Each thread will be in charge of doing the sum of two elements. We need 12 sums, and therefore we will use 12 threads. We will use 1 one-dimensional block with 12 threads, in order to make it easier to direct a thread to its assigned sum of values and its assigned storage cell, using its `threadIdx.x`.
 
@@ -19,6 +19,8 @@ The idea is to have two vectors (arrays) of size 12 each, and sum its elements t
 - The instruction is the same for all threads, the only thing that changes is the data with which this operation/instruction will be done by each thread. In this case, the globalId will be useful to locate the data to process in arrays a and b, but also to assign the thread that will operate this data.
 
 - The kernel will be executed N times, one by each of the N threads. 12 threads will execute the two lines of code inside the kernel: there will be 12 gId vars (one for each thread), this `gId` variable can be considered as a **different** variable for each thread.
+
+### Solution
 
 ```c++
 #include "cuda_runtime.h"
@@ -68,9 +70,8 @@ int main()
     return 0;
 }
 ```
+### Output
 
-![image]()
+![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09012021/res/out-ex01.png?raw=true)
 
 - For example, when working with images, as they are matrices, the best thing to do is to configure the blocks to be of dimensions similar to those image matrices: a bidimensional block to use the threadIdx x and y components.
-
-##
