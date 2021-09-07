@@ -112,6 +112,9 @@ Make a program in c/c++ using CUDA in which you implement a kernel that assigns 
 #include <stdio.h>
 #include <stdlib.h> /* srand, rand */
 #include <time.h> /* time */
+
+#include<iostream>
+using namespace std;
 __global__ void idKernel(int* vecA, int* vecB, int* vecC) {
 	int gId = threadIdx.x + blockDim.x * blockIdx.x;
 
@@ -120,7 +123,8 @@ __global__ void idKernel(int* vecA, int* vecB, int* vecC) {
 	vecC[gId] = gId;
 }
 
-void printArray(int* arr, int size) {
+void printArray(int* arr, int size, char * msg) {
+	cout << msg << ": ";
 	for (int i = 0; i < size; i++) {
 		printf("%d ", arr[i]);
 	}
@@ -161,35 +165,35 @@ int main()
 	cudaMemcpy(host_c, dev_c, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 
 	printf("Execution 1: 1 block 64 threads \n");
-	printArray(host_a, vectorSize);
-	printArray(host_b, vectorSize);
-	printArray(host_c, vectorSize);
+	printArray(host_a, vectorSize, "threadIdx.x");
+	printArray(host_b, vectorSize, "blockIdx.x");
+	printArray(host_c, vectorSize, "globalId");
 
 	grid.x = 64; // (64, 1, 1)
 	block.x = 1; // (1, 1, 1)
-	idKernel <<< grid, block >>> (dev_a, dev_b, dev_c);
+	idKernel << < grid, block >> > (dev_a, dev_b, dev_c);
 	cudaDeviceSynchronize();
 	cudaMemcpy(host_a, dev_a, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 	cudaMemcpy(host_b, dev_b, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 	cudaMemcpy(host_c, dev_c, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 
 	printf("\nExecution 2: 64 blocks 1 thread \n");
-	printArray(host_a, vectorSize);
-	printArray(host_b, vectorSize);
-	printArray(host_c, vectorSize);
+	printArray(host_a, vectorSize, "threadIdx.x");
+	printArray(host_b, vectorSize, "blockIdx.x");
+	printArray(host_c, vectorSize, "globalId");
 
 	grid.x = 4;
 	block.x = 16;
-	idKernel <<< grid, block >>> (dev_a, dev_b, dev_c);
+	idKernel << < grid, block >> > (dev_a, dev_b, dev_c);
 	cudaDeviceSynchronize();
 	cudaMemcpy(host_a, dev_a, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 	cudaMemcpy(host_b, dev_b, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 	cudaMemcpy(host_c, dev_c, sizeof(int) * vectorSize, cudaMemcpyDeviceToHost);
 
 	printf("\nExecution 3: 4 block 16 threads \n");
-	printArray(host_a, vectorSize);
-	printArray(host_b, vectorSize);
-	printArray(host_c, vectorSize);
+	printArray(host_a, vectorSize, "threadIdx.x");
+	printArray(host_b, vectorSize, "blockIdx.x");
+	printArray(host_c, vectorSize, "globalId");
 
 	free(host_a);
 	free(host_b);
@@ -200,6 +204,10 @@ int main()
 	return 0;
 }
 ```
+
+### Output
+
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09062021/res/out-lab06.png?raw=true)
 
 ### Observations
 
