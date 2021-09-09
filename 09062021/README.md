@@ -104,7 +104,7 @@ Make a program in c/c++ using CUDA in which you implement a kernel that assigns 
 
 - Print the results from main function, with a text indicating the config of each execution.
 
-## Solution
+### Solution
 
 ```c++
 #include "cuda_runtime.h"
