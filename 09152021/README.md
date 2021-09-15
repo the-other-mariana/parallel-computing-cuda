@@ -37,7 +37,7 @@ __host__ void checkCUDAError(const char* msg) {
 
 __global__ void flipVector(int* vector, int* flippedVector) {
 	int gId = threadIdx.x + blockIdx.x * blockDim.x;
-	flippedVector[(32 - 1) - gId] = vector[gId];
+	flippedVector[(blockDim.x - 1) - gId] = vector[gId];
 }
 
 int main() {
