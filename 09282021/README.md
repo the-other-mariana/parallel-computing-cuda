@@ -12,7 +12,7 @@
 
 - All threads inside a block are divided into warps. Each thread will be executed in a streaming processor (SP) or CUDA Core or Nucleus. **Each block is executed in a Streaming Multiprocessor (SM), which has 32 small squares (SP) / 1 warp, if this block qty is exceeded, waiting time is required.**
 
-
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/01.png?raw=true)
 
 *Therefore, each SM can process in parallel 32 threads (1 warp).*
 
@@ -20,11 +20,11 @@
 
 - A warp is a **basic unit** that will help us with the decision of which block config to use. Each SM is divided into warps. 
 
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/02.png?raw=true)
 
+- Imagine we have 8 blocks with 128 threads each = 1024 threads, when in reality we have 8 (SM) x 32 (SP) = 256 in real parallel. Thus, each of those 128 threads are divided into warps: 4 warps per block. Each block will be divided into 4, and what will happen is that each warp of 32 threads will be taken and so on, until you run the 1024 threads you wanted in total.
 
-- Image we have 8 blocks with 128 threads each = 1024 threads, when in reality we have 8 (SM) x 32 (SP) = 256 in real parallel. Thus, each of those 128 threads are divided into warps: 4 warps per block. Each block will be divided into 4, and what will happen is that each warp of 32 threads will be taken and so on, until you run the 1024 threads you wanted in total.
-
-
+	![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/03.png?raw=true)
 
 	*Note: a) in this config, all warps will be executed (maybe in line) in 1 SM unit. Slower, 1 SM for 128 (you wait 4 times).*
 
@@ -32,7 +32,7 @@
 
     - An SM has a number of threads, which will be grouped in warps. The SM runs all its threads (warps) in parallel. In this examples, we are saying that an SM runs only 32 threads or 1 warp in parallel.
 
-
+	![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/04.png?raw=true)
 
 	*Note: b) in this config, the first 2 warps will be executed in 1 SM, and the other 2 warps in another SM, because they are in different blocks. Faster, 1 SM for 64 (you wait 2 times). Thus, if we launch 4 blocks with 32 threads each, we would be executing all in parallel (32 threads per SM) ans still launch 128 threads. All SM's run independently their warps (block). The two-block config is slower because you're giving 64 threads to 2 SM's that run 1 warp, and in the four-block config you're giving 32 threads to 4 SM's that run 1 warp.*
 
@@ -44,7 +44,7 @@
 
 	- If we launch 2 block with 40 threads each (80 total threads), we will need 4 warps, and not 3. This because **each block is divided separately into warps**. If you have 1 block with 40 threads, you will need on *that* block 2 warps: 32 in one and 8 in another. Same thing with the next block = 4 warps.
 
-
+	![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/05.png?raw=true)
 
 	- Therefore, to launch 80 threads with this config we will need 4 warps = 128 threads, with 48 inactive threads. When we do not configure in 32 multiples, we use more threads than necessary: this is why we need multiples of 32, so that there are **no wasted** threads. Even if you launch a kernel with a single thread block, CUDA will need 1 warp / 32 threads.
 
@@ -52,7 +52,7 @@
 
 If we were to launch 4 block with 42 threads each, how many warps would we need? The answer is 8 warps. Therefore, we would be reserving 256 threads to launch 168 active threads.
 
-
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/06.png?raw=true)
 
 Write a program in c/c++ using CUDA in which you implement a kernel that prints the following info for each thread:
 
