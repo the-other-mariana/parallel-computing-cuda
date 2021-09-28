@@ -2,24 +2,24 @@
 
 ## Error Management in CUDA
 
-CUDA provides a way to handle errors that involve **exceeded GPU capacities** or **GPU malfunctioning**. These are not logic nor syntax errors.
+CUDA provides a way to handle errors that involve **exceeded GPU capacities** or **GPU malfunctioning**: the hardest errors to find out. These are not logic nor syntax errors.
 
-- `cudaError_t` is a CUDA type that is really an integer, and this number gives us a hint. Every CUDA function returns an error that can be stored in this type. The only CUDA funtcion that doesnt return a `cudaError_t` variable is a kernel itself: it must return void.
+- `cudaError_t` is a CUDA type given to handle errors, that is really an integer, and this number gives us a hint about the possible error. Every CUDA function returns an error that can be stored in this type. The only CUDA function that doesnt return a `cudaError_t` variable is a kernel itself: it must return void.
 
 ```c++
 cudaError_t error;
 error = cudaMalloc((void**)&ptr, size);
 ```
 
-## Types of Errors
+## Types of Errors (Most Common)
 
-- `cudaSuccess = 0`: successful execution
+- `cudaSuccess = 0`: The API call returned with no errors. In query calls, this also means the query is complete. Successful execution.
 
 - `cudaErrorInvalidValue = 1`: This indicates that one or more parameters passed to the API function call is not within an acceptable range of values. An enum param in a CUDA function that you didnt match, or a different data type sent.
 
-- `cudaErrorMemoryAllocation = 2`: the API call failed because it was unable to allocate enough memory to perform the operation. When you do not have enough space in memory: you would normally write on memory outside of your array, but if there is no more mem left, this happens.
+- `cudaErrorMemoryAllocation = 2`: the API call failed because it was unable to allocate enough memory to perform the requested operation. When you do not have/allocate enough space in kernel memory for a requested instruction: you would normally write on memory outside of your array, but if there is no more mem left, this happens.
 
-- `cudaErrorInvalidConfiguration = 9`: When you exceed the max num of blocks or threads of the GPU card.
+- `cudaErrorInvalidConfiguration = 9`: This indicates that a kernel launch is requesting resources that can never be satisfied with the current device. Requesting too many shared memory per block than supported, as well as requesting too many threads or blocks. This happens when you have an invalid kernel config (grid/blocks): when you exceed the max num of blocks per grid or threads of the GPU card.
 
 - `cudaErrorInvalidMemcpyDirection = 21`: the direction of the memcpy passed to API call is not one of the types specified by cudaMemcpyKind. You put another word, basically.
 
