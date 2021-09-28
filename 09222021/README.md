@@ -1,5 +1,7 @@
 # Notes
 
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09222021/res/01.png?raw=true)
+
 - When we have information in matrix form, it is convenient to configure the threads in a block (block's config) as a matrix too, so that processing is easier.
 
 - The task here is to compute the gId out of a 2D block config in order to access the vector parameter (matrix of info) that is inside the device.
