@@ -55,3 +55,7 @@ int main() {
 }
 ```
 
+### Output
+
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/out-lab08.png?raw=true)
+
