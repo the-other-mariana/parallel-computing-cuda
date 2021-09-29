@@ -17,7 +17,7 @@ dim3 block(3,3); // (3,3,1)
 
 - The idea is to send n x m threads for a n x m image.
 
-- The coordinates to locate a thread in a single-block grid inside its 2D block are (`threadIdx.x`, `threadIdx.y`). So, if we have a config in the form of a matrix, we need to unfold in order to calculate the global ID, and this id will be used to access the vector we have as a param. The globalId now is calculated as:
+- The coordinates to locate a thread in a single-block grid inside its 2D block are (`threadIdx.x`, `threadIdx.y`). So, if we have a config in the form of a matrix, we need to unfold this 2D matrix block config in order to calculate the global ID, and this id will be used to access the vector we have as a param. The globalId now is calculated as:
 
 > gId = threadIdx.x + threadIdx.y * blockDim.x
 
@@ -122,7 +122,7 @@ The objective is, given a matrix of information, apply a blur filter using that 
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/04.png?raw=true)
 
-- The border threads will not do anything, and this is managed by knowing its global Id. In order to do that, we need to unfold the matrix as a vector
+- The border threads will not do anything, and this is managed by knowing its global Id. In order to do that, we need to unfold the matrix block config as a vector
 
 ![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/05.png?raw=true)
 
