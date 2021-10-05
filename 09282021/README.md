@@ -1,6 +1,6 @@
 # Notes
 
-- A kernel config in the form of a matrix block is appropiate when out data has the same form of a matrix. It is appropiate because with the same way that we identify the threads laucnhed through the kernel, that same index that allows us to identify threads is used also to identify the data we want to process. Therefore, it is doubly convenient: threads in the same form that our data.
+- A kernel config in the form of a matrix block is appropiate when our data has the same form of a matrix. It is appropiate because with the same way that we identify the threads launched through the kernel, that same index that allows us to identify threads is used also to identify the data we want to process. Therefore, it is doubly convenient: threads in the same form that our data.
 
 - When we work with big matrices, we cannot use just one block, because it can only be 32 x 32. We need to use various blocks: with which configs? Through which axes?
 
@@ -10,7 +10,7 @@
 
 - These 32 consecutive threads inside a warp use the SIMT modality (Single Instruction Multiple Threads) when executed in parallel: One instruction executed by multiple (each) threads. This means that each thread will execute the same instructions but with different data, its **own** variables or memory. 
 
-- All threads inside a block are divided into warps. Each thread will be executed in a streaming processor (SP) or CUDA Core or Nucleus. **Each block is executed in a Streaming Multiprocessor (SM), which has 32 small squares (SP) / 1 warp, if this block qty is exceeded, waiting time is required.**
+- All threads inside a block are divided into warps. Each thread will be executed in a streaming processor (SP) or CUDA Core or Nucleus. **Each block is executed in a Streaming Multiprocessor (SM), which has 32 small squares (SP) / 1 warp, if this block qty is exceeded, waiting time is required.** If a SM has 64 SP (2 warps), that means that the SM has the capacity to run 2 warps in real parallel.
 
 ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/01.png?raw=true)
 
@@ -22,7 +22,9 @@
 
 ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/02.png?raw=true)
 
-- Imagine we have 8 blocks with 128 threads each = 1024 threads, when in reality we have 8 (SM) x 32 (SP) = 256 in real parallel. Thus, each of those 128 threads are divided into warps: 4 warps per block. Each block will be divided into 4, and what will happen is that each warp of 32 threads will be taken and so on, until you run the 1024 threads you wanted in total.
+- Imagine we have 8 blocks with 128 threads each = 1024 threads, when in reality we have 8 (SM) x 32 (SP) = 256 in real parallel. Thus, each of those 128 threads are divided into warps: 4 warps per block. Each block will be divided into 4, and what will happen is that each warp of 32 threads will be taken and so on, until you run the 128 threads in 8 SM's, giving the 1024 threads you wanted in total.
+
+	### 1 block, 128 threads
 
 	![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09282021/res/03.png?raw=true)
 
