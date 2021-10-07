@@ -27,5 +27,4 @@ C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(127):
   
 CUDACOMPILE : nvcc warning : The 'compute_35', 'compute_37', 'compute_50', 'sm_35', 'sm_37' and 'sm_50' architectures are deprecated, and may be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   kernel.cu
-     Creating library C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\x64\Debug\lab11.lib and object C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\x64\Debug\lab11.exp
   lab11.vcxproj -> C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\x64\Debug\lab11.exe
