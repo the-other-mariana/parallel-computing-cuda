@@ -94,4 +94,4 @@ int main() {
 
 ### Output
 
-![img]()
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/11012021/out.png?raw=true)
