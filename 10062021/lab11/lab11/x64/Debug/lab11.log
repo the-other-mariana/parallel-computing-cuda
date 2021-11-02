@@ -9,6 +9,8 @@ C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(100):
   
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(127): warning : overloaded virtual function "cv::detail::Blender::prepare" is only partially overridden in class "cv::detail::MultiBandBlender"
   
+C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\lab11\kernel.cu(151): warning : variable "p_img" was declared but never referenced
+  
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/warpers.hpp(213): warning : overloaded virtual function "cv::detail::PlaneWarper::buildMaps" is only partially overridden in class "cv::detail::AffineWarper"
   
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/warpers.hpp(213): warning : overloaded virtual function "cv::detail::PlaneWarper::warp" is only partially overridden in class "cv::detail::AffineWarper"
@@ -16,6 +18,8 @@ C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/warpers.hpp(213): 
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(100): warning : overloaded virtual function "cv::detail::Blender::prepare" is only partially overridden in class "cv::detail::FeatherBlender"
   
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(127): warning : overloaded virtual function "cv::detail::Blender::prepare" is only partially overridden in class "cv::detail::MultiBandBlender"
+  
+C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\lab11\kernel.cu(151): warning : variable "p_img" was declared but never referenced
   
 C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/warpers.hpp(213): warning : overloaded virtual function "cv::detail::PlaneWarper::buildMaps" is only partially overridden in class "cv::detail::AffineWarper"
   
@@ -27,4 +31,5 @@ C:\OpenCV-4.2.0\opencv\build\include\opencv2/stitching/detail/blenders.hpp(127):
   
 CUDACOMPILE : nvcc warning : The 'compute_35', 'compute_37', 'compute_50', 'sm_35', 'sm_37' and 'sm_50' architectures are deprecated, and may be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   kernel.cu
+C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\lab11\kernel.cu(151): warning C4101: 'p_img': unreferenced local variable
   lab11.vcxproj -> C:\Users\mariana\Documents\github-mariana\parallel-computing-cuda\10062021\lab11\x64\Debug\lab11.exe
