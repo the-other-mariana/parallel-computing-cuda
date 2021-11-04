@@ -166,4 +166,4 @@ int main() {
 
 ### Output
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/11032021/out.png?raw=true)
+![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/11032021/out-ex01.png?raw=true)
