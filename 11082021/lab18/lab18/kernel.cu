@@ -6,7 +6,7 @@
 #include <iostream>
 
 #define numBlocks 8
-#define threadsPerBlock 8
+#define threadsPerBlock 1024
 
 using namespace std;
 
