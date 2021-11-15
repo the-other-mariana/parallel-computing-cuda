@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#define numBlocks 8
+#define numBlocks 4
 #define threadsPerBlock 1024
 
 using namespace std;
@@ -58,13 +58,13 @@ __global__ void GPU_reduction(int* v, int* sum) {
 		v[gId] = v[gId * threadsPerBlock]; // 0 <- 0*8, 1 <- 1*8 ...
 		__syncthreads();
 		//printf("%d<-%d\n", v[gId], v[gId * threadsPerBlock]);
-		int new_step = numBlocks / 2;
-		while (new_step) {
-			if (gId < new_step) {
-				v[gId] += v[gId + new_step];
-			}
-			new_step = new_step / 2;
+	}
+	int new_step = numBlocks / 2;
+	while (new_step) {
+		if (gId < new_step) {
+			v[gId] += v[gId + new_step];
 		}
+		new_step = new_step / 2;
 	}
 	if (gId == 0) {
 		*sum = v[0];
