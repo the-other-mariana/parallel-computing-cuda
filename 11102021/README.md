@@ -145,4 +145,4 @@ int main() {
 
 ### Output
 
-![img](res/out32.PNG)
+![img](res/out32.png)
