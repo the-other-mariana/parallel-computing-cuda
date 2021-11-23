@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <iostream>
 
-#define numBlocks 4
+#define numBlocks 8
 #define threadsPerBlock 1024
 
 using namespace std;
@@ -48,11 +48,12 @@ __global__ void GPU_reduction(int* v, int* sum) {
 		}
 		step = step / 2;
 	}
+	__syncthreads();
 	if (threadIdx.x == 0) { // copy the partial results to the global mem vector
-		//printf("SM->Sum: %d gId: %d\n", vector[gId], gId);
+		//printf("SM->vector[%d]: %d\n", gId, vector[gId]);
 		v[gId] = vector[gId];
 		__syncthreads();
-		//printf("GM->Sum: %d gId: %d\n", v[gId], gId);
+		//printf("GM->v[%d]: %d\n", gId, v[gId]);
 	}
 	if (gId < numBlocks) { // choose the first 4 threads to copy in the first 4 cells the partial sums
 		v[gId] = v[gId * threadsPerBlock]; // 0 <- 0*8, 1 <- 1*8 ...
@@ -66,8 +67,9 @@ __global__ void GPU_reduction(int* v, int* sum) {
 		}
 		new_step = new_step / 2;
 	}
+	__syncthreads();
 	if (gId == 0) {
-		*sum = v[0];
+		*sum = v[gId];
 	}
 }
 
