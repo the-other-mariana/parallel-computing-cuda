@@ -10,6 +10,8 @@ It is not completely in parallel, but it is done in less iterations than a **seq
 
 - The only condition is that **the vector size is even**.
 
+![img](res/1.png)
+
 ### Solution
 
 ```c++
@@ -94,4 +96,4 @@ int main() {
 
 ### Output
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/11012021/out.png?raw=true)
+![img](res/out.png)
