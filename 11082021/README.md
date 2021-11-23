@@ -268,4 +268,4 @@ int main() {
 
 ### Output
 
-![img](res/out-lab18.png)
+![img](res/out-lab18.PNG)
