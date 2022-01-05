@@ -10,7 +10,7 @@
 
 The idea is to have two vectors (arrays) of size 12 each, and sum its elements to store them in a third array, of size 12 as well: first element of A + first element of B, stored on the first element of C and so on.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09012021/res/ex01-diagram.png?raw=true)
+![Image](res/ex01-diagram.png)
 
 - Each thread will be in charge of doing the sum of two elements. We need 12 sums, and therefore we will use 12 threads. We will use 1 one-dimensional block with 12 threads, in order to make it easier to direct a thread to its assigned sum of values and its assigned storage cell, using its `threadIdx.x`.
 
@@ -72,6 +72,6 @@ int main()
 ```
 ### Output
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09012021/res/out-ex01.png?raw=true)
+![Image](res/out-ex01.png)
 
 - For example, when working with images, as they are matrices, the best thing to do is to configure the blocks to be of dimensions similar to those image matrices: a bidimensional block to use the threadIdx x and y components.

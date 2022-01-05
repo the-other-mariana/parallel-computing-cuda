@@ -12,7 +12,7 @@
 
     - `gridDim`: how many **blocks** per dimension are in the **grid**. These are **quantity values**, not indexes, and therefore are constant for all threads. It has x,y,z values.
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08252021/res/03-all-props.png?raw=true) 
+![Image](res/03-all-props.png) 
 
 ## Lab 04
 
@@ -28,7 +28,7 @@ Make a program in c/c++ using CUDA in which you implement a grid in 3D that has 
 
 Like the image below:
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08252021/res/04-config-lab04.png?raw=true) 
+![Image](res/04-config-lab04.png) 
 
 ### Solution
 

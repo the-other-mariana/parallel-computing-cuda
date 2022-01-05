@@ -207,7 +207,7 @@ int main()
 
 ### Output
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09062021/res/out-lab06.png?raw=true)
+![Image](res/out-lab06.png)
 
 ### Observations
 

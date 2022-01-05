@@ -1,6 +1,6 @@
 # Notes
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09222021/res/01.png?raw=true)
+![Image](res/01.png)
 
 - When we have information in matrix form, it is convenient to configure the threads in a block (block's config) as a matrix too, so that processing is easier.
 
@@ -121,4 +121,4 @@ int main() {
 
 ### Output
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09222021/res/out-lab08.png?raw=true)
+![Image](res/out-lab08.png)

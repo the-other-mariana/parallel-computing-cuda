@@ -4,7 +4,7 @@
 
 - Threads (orange cubes) are contained or grouped in blocks (yellow container). In the image, there are six threads, one block. In this way, The kernel (function) will be executed by each thread at the same time (in parallel). This means that if we were to launch a kernel with this config (six threads one block), all we coded inside the kernel would be executed six times, one by each thread.
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/01-simple-block.png?raw=true)
+![Image](res/01-simple-block.png)
 
 Blocks are tridimensional, as well as grids. The above block is one dimensional.
 
@@ -12,19 +12,19 @@ Blocks are tridimensional, as well as grids. The above block is one dimensional.
 
     - `threadIdx.x`: x axis index number of the thread. If you have only one block with six threads along one axis (one dimensional block), this property will be the full id. Indexes start in zero. It's y and z components are zero in one dimensional blocks, like the following image.
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/02-id-x.png?raw=true) 
+    ![Image](res/02-id-x.png) 
 
     In the case of **a one dimensional block**, a thread would be identified with only one property: `threadIdx.x`. Properties `threadIdx.y` and `threadIdx.z` are zero. For example, (3,0,0).
 
     - `threadIdx.y`: you will also need y component if your block is bidimensional, like the below image. Z component is zero in that case as well.
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/03-2d-block.png?raw=true)
+    ![Image](res/03-2d-block.png)
 
     In the case of **a two dimensional block**, to identify a thread in this single-block config, you would need two components: `threadIdx.x` and `threadIdx.y`, while `threadIdx.z` is zero. For example (4,1,0).
 
     - `threadIdx.z`: for the case of **a three dimensional block**, you will need a third component to identify threads in it, called `threadIdx.z`, which indicates the position of the thread in the z axis. For example, (4,0,1).
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/04-3d-block.png?raw=true)
+    ![Image](res/04-3d-block.png)
 
 We need to identify threads in order to give instructions to particular threads inside the kernel. Then, **these indexes** will allow us to identify a thread inside **its block**. 
 
@@ -36,21 +36,21 @@ Most applications use **one dimensional blocks**. We said that we can identify a
 
     - `dim3 grid`: how are blocks organized in the grid, or *how many blocks will we launch with a kernel and how are these organized in the axes*. For example, `dim3 grid(3,1,1)` in the below image. (For one block, we would have `dim3 grid(1,1,1)`)
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/05-1d-grid.png?raw=true)
+    ![Image](res/05-1d-grid.png)
 
     Or bidimensional grids as with `dim3 grid(3,2,1)`:
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/05-2d-grid.png?raw=true)
+    ![Image](res/05-2d-grid.png)
 
     As well as three dimensional grids with the example of `dim3 grid(3,2,2)`:
 
-    ![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/06-3d-grid.png?raw=true)
+    ![img](res/06-3d-grid.png)
 
     - `dim3 block`: how are threads organized in the blocks, *how a block is configured: how many threads and in which axes*.
 
 ## Example 1
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/07-dim-grid-block.png?raw=true)
+![Image](res/07-dim-grid-block.png)
 
 For this case of one grid with a 1d block, the code would be:
 
@@ -88,7 +88,7 @@ threadIdx.x: 5, threadIdx.y: 0, threadIdx.z: 0
 
 ## Example 2
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/03-2d-block.png?raw=true)
+![Image](res/03-2d-block.png)
 
 For this case of 1 block with 6 threads in x and 2 in y axis:
 
@@ -126,7 +126,7 @@ threadIdx.x: 5, threadIdx.y: 1, threadIdx.z: 0
 
 ## Example 3
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/04-3d-block.png?raw=true)
+![Image](res/04-3d-block.png)
 
 For this case of 1 block with 6 threads in x, 2 in y and 3 in z axis:
 
@@ -192,7 +192,7 @@ Because of the repeated Ids, we have a *unique* Id for each thread in a block, c
 
 ## One Block & One Dimension
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/07-dim-grid-block.png?raw=true)
+![Image](res/07-dim-grid-block.png)
 
 ```c++
 __global__ void printGlobalId_oneBlockOneDim()
@@ -222,7 +222,7 @@ threadIdx.x: 5
 
 ## N Blocks, 1 Axis (One Dimension)
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08232021/res/0809-global-formula.png?raw=true)
+![Image](res/0809-global-formula.png)
 
 Then, because their threadIdx.x would be 012 012 012, we need:
 

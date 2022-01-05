@@ -4,7 +4,7 @@
 
     - When working with one image, the block config must be a matrix too.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/01.png?raw=true)
+![Image](res/01.png)
 
 - The kernel must always receive a **vector of information** as a parameter even though our data is a matrix, like an image. Inside the kernel we then need to unfold the matrix so that we can access an image like a vector. Thus, we need to transform the matrix to a vector only in the process of **data transference** between host and device, so that the device receives it as a vector then. But the kernel can be configured as a matrix:
 
@@ -13,7 +13,7 @@ dim3 grid(1);
 dim3 block(3,3); // (3,3,1)
 ```
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/02.png?raw=true)
+![Image](res/02.png)
 
 - The idea is to send n x m threads for a n x m image.
 
@@ -23,7 +23,7 @@ dim3 block(3,3); // (3,3,1)
 
 - The `threadIdx.y * blockDim.x` tells you how many rows to skip downwards through the 'Y' component.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/03.png?raw=true)
+![Image](res/03.png)
 
 ### Example 01
 
@@ -120,12 +120,12 @@ The objective is, given a matrix of information, apply a blur filter using that 
 
 - Without considering the borders:
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/04.png?raw=true)
+![Image](res/04.png)
 
 - The border threads will not do anything, and this is managed by knowing its global Id. In order to do that, we need to unfold the matrix block config as a vector
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/05.png?raw=true)
+![Image](res/05.png)
 
 - Now, we will use the calculated gId to get the element of the vector of information that we need to sum as a neighbour, so that each cell can now contain the average of its four neighbours.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09202021/res/06.png?raw=true)
+![Image](res/06.png)

@@ -51,4 +51,4 @@ Software level: one 3D grid with blocks.
 
 The output on my personal machine looks as following: <br />
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08092021/lab01/output.png?raw=true) <br />
+![Image](res/output.png?raw=true) <br />

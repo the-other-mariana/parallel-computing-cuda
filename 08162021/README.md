@@ -127,13 +127,13 @@ int main()
 
 At the line `int* host_num1 = (int*)malloc(sizeof(int));`, Visual Studio makes a suggestion, which is the same I put in the comment on that line. <br />
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08162021/alt01.png?raw=true) <br />
+![Image](res/alt01.png) <br />
 
 ## Output Example 01
 
 My machine produces the following output. <br />
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08162021/out-ex01.png?raw=true) <br />
+![Image](res/out-ex01.png) <br />
 
 ## Code Alternatives
 

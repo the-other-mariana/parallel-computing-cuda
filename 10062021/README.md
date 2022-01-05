@@ -2,7 +2,7 @@
 
 To process an image in RGB, we just need to apply what we did for a grayscale image but three times, each for an RGB channel: have a matrix (vector) of data for channel R, G and B.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/10062021/res/01.png?raw=true)
+![image](res/01.png)
 
 ## Lab 11
 
@@ -24,7 +24,7 @@ Write a program in c/c++ using CUDA in which you implement a kernel to modify th
 
 ### Input
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/10062021/lab11/lab11/antenaRGB.jpg?raw=true)
+![img](res/antenaRGB.jpg)
 
 ### Solution
 
@@ -255,12 +255,12 @@ int main() {
 
 ### Complement
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/10062021/res/complement.PNG?raw=true)
+![img](res/complement.PNG)
 
 ### Contrast
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/10062021/res/contrast.PNG?raw=true)
+![img](res/contrast.PNG)
 
 ### Brightness
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/10062021/res/brightness.PNG?raw=true)
+![img](res/brightness.PNG)

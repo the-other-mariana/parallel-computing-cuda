@@ -84,4 +84,4 @@ int main() {
 
 ### Output
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09152021/outlab07.png?raw=true)
+![Image](res/outlab07.png)

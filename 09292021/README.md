@@ -36,17 +36,17 @@
 
 - Let's divide the image into blocks, where each block contains or processes a certain amount of pixels. Each block would be a 32 x 32 matrix of image pixels. In this way, we obtain 4 x 3 blocks of 32 by 32 each. The grid config for the kernel launch would be `grid(3, 4, 1)` and the idea is to use each SM to process a block of 32 x 32 (1024 threads) in parallel.
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09292021/res/01.png?raw=true)
+![Image](res/01.png)
 
 *Note: another config could be 12 1D blocks of 1024 (multiple of 32) threads along the x or y axis*
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09292021/res/02.png?raw=true)
+![Image](res/02.png)
 
 - If all configs use the maximum amount of resources without wasting threads (blocks multiples of 32), then you choose the one that is more natural to program.
 
 ## Example 2
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09292021/res/03.png?raw=true)
+![Image](res/03.png)
 
 - In this image, we now the grid config (block quantities per axis) just by dividing the dimensions 768 x 448 by 32 and we get `grid(14, 24, 1)`. Thus, 14 x 24 = 336 square blocks of 32 x 32. The 32 x 32 = 1024, which are the threads in `maxThreadsPerBlock` or in a block, not per SM. Each of these blocks would be executed by one SM, because of i). We only have 16 SM and we have 336 blocks, so in each multiprocessor there will be 21 blocks per SM, **with some waiting time**: virtually or in software would be parallel, but not at hardware level. At hardware or real parallel, it must be the number given by NVIDIA.
 
@@ -80,7 +80,7 @@
 
     - A block is executed in an SM unit. But, by having `maxBlocksPerMultiprocessor`, we conclude that we can execute more than one block, with waiting time.
 
-![img](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/09292021/res/04.png?raw=true)
+![Image](res/04.png)
 
 ## Handy Links
 

@@ -16,7 +16,7 @@ A Host (CPU) and Device (GPU) have their own separate memory, CPU Memory and Glo
 
 - Each thread has its own memory, called **Register**, which is very quick access but limited in space.
 
-![image](https://github.com/the-other-mariana/parallel-computing-cuda/blob/master/08112021/res/mem_diag.png?raw=true)<br />
+![Image](res/mem_diag.png)<br />
 
 ### Memory Management (Reserve)
 

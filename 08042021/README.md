@@ -1,4 +1,4 @@
-# Notes
+# Review: Pointers & Memory Allocation
 
 ## 1. Pointers
 
