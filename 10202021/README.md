@@ -1,4 +1,4 @@
-# Notes
+# Practice
 
 ![img](res/1.png)
 

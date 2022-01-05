@@ -1,4 +1,4 @@
-# Notes
+# RGB Image Manipulation Using CUDA: Practice
 
 To process an image in RGB, we just need to apply what we did for a grayscale image but three times, each for an RGB channel: have a matrix (vector) of data for channel R, G and B.
 

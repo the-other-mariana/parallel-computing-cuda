@@ -1,6 +1,4 @@
-# Notes
-
-## Kernel Validation
+# Kernel Validation
 
 Verify just once that the kernel operations are correctly performed, which is crutial when working with large amounts of data. This consists in a comparison between the result of the same operation done both in CPU and GPU.
 

@@ -1,6 +1,4 @@
-# Notes
-
-## Shared Memory with More than 1 Block
+# Shared Memory with More than 1 Block
 
 Imagine we launch four blocks in a kernel, each block with 8 threads, as shown below.
 

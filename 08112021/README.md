@@ -1,4 +1,4 @@
-# Notes
+# Data Transfer and Memory Management
 
 - A warp is the basic unit of grouping threads. We make this concept because a warp is physically executed.
 
@@ -6,7 +6,7 @@
 
 - A thread is executed in a CUDA core and a CUDA core is a processing nucleus.
 
-## Data Transfer and Memory Management
+---
 
 A Host (CPU) and Device (GPU) have their own separate memory, CPU Memory and Global Memory respectively. CUDA creates functions to transfer info from one memory to another to connect these memories.
 

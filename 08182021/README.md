@@ -1,4 +1,4 @@
-# Notes
+# Practice
 
 ## Exercise 1
 

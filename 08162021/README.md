@@ -1,6 +1,4 @@
-# Notes
-
-## The Kernel
+# The Kernel
 
 It is a method executed in the GPU as a mass execution. As seen before, CUDA architecure's Processing flow is done switching between CPU and GPU. The kernel is a function you execute on the Device.
 

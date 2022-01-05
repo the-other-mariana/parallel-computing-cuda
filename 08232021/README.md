@@ -1,4 +1,4 @@
-# Notes
+# Thread Identification
 
 ## Many Threads, One Block
 

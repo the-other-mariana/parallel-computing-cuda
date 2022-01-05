@@ -1,6 +1,4 @@
-# Notes
-
-## Constant Memory
+# Constant Memory
 
 Apart from all the other memories shown in the previous diagram, we have Constant Memory:
 

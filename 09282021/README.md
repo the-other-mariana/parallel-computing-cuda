@@ -1,4 +1,4 @@
-# Notes
+# Warps and Thread Launching
 
 - A kernel config in the form of a matrix block is appropiate when our data has the same form of a matrix. It is appropiate because with the same way that we identify the threads launched through the kernel, that same index that allows us to identify threads is used also to identify the data we want to process. Therefore, it is doubly convenient: threads in the same form that our data.
 

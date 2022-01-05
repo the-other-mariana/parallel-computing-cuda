@@ -1,4 +1,4 @@
-# Notes 
+# Matrix Configurations
 
 - The ideal is to configure the block/grid according to the data you need to process: when wroking with vectors, configure grid/blocks as vectors, when working with images, configure grid/blocks as matrix.
 

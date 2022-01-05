@@ -1,4 +1,4 @@
-# Notes
+# RGB Image Manipulation: Other Options
 
 Now, instead of processing the complement of the RGB image by reading from 3 vectors of information, let's try and read from a single vector that holds R, G and B vectors in one: vecSize x 3 this time.
 

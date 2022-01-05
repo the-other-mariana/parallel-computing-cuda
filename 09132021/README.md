@@ -1,6 +1,4 @@
-# Notes
-
-## Error Management in CUDA
+# Error Management in CUDA
 
 CUDA provides a way to handle errors that involve **exceeded GPU capacities** or **GPU malfunctioning**: the hardest errors to find out. These are not logic nor syntax errors.
 

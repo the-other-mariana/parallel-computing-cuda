@@ -1,4 +1,4 @@
-# Notes
+# Introduction: CUDA
 
 CUDA is a programming language that acts as an interface to handle the GPU API.
 

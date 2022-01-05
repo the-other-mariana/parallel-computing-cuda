@@ -1,4 +1,4 @@
-# Notes
+# Practice
 
 - `cudaDeviceSynchronize();` checks **if** there's some process in kernel to wait for, else it continues normally with host lines.
 

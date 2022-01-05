@@ -1,4 +1,4 @@
-# Notes
+# Matrix Configurations: Practice
 
 ![Image](res/01.png)
 

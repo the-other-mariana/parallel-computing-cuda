@@ -1,4 +1,4 @@
-# Notes
+# GPU Specs Meaning
 
 ## Summary
 

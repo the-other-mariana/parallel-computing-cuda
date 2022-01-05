@@ -1,4 +1,4 @@
-# Notes
+# Practice
 
 - If you launch a kernel with 1 block and this block has only 1 dimension: `globalId = threadIdx.x`. A globalId is important because it allows us to identify a thread from another with a **unique** value. 
 

@@ -1,6 +1,4 @@
-# Notes
-
-## Other Configs (3D Grid with 3D Blocks)
+# Other Configs (3D Grid with 3D Blocks)
 
 - Properties `threadIdx.x`, `threadIdx.y` and `threadIdx.z` are used to identify a thread **inside its block**.
 

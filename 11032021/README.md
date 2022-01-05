@@ -1,6 +1,4 @@
-# Notes
-
-## Warp Divergence
+# Warp Divergence
 
 **Warp Divergence** happens when you launch the threads in a warp to do **different things** among them. For example, if you, inside a kernel, differentiate the activities of the threads using their global ID and send, for example, the even threads to do this and the odds to do something else. Last time, in parallel reduction, you provoked this divergence.
 

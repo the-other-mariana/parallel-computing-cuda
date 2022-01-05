@@ -1,4 +1,4 @@
-# Note
+# Configs Cheatsheet
 
 ## 1D Grid & 1D Block
 
