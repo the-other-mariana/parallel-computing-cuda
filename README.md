@@ -1,6 +1,8 @@
 # Parallel Computing with Cuda
 
-This repo contains notes and code related to learning parallel computing using Cuda. The compilation of all lecture notes and its corresponding code is in the [pdf file: Introduction to Parallel Computing with CUDA](https://github.com/the-other-mariana/pandoc-pdfs/blob/master/cuda01/book/cuda-book.pdf).
+This repo contains notes and code related to learning parallel computing using Cuda. 
+
+- The compilation of all lecture notes and its corresponding code is in the pdf file: [Introduction to Parallel Computing with CUDA](https://github.com/the-other-mariana/pandoc-pdfs/blob/master/cuda01/book/cuda-book.pdf).
 
 ## Set Up
 
